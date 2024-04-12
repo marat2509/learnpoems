@@ -1,0 +1,35 @@
+:root {
+	--background-color: #f5f5f5;
+	--text-color: #333;
+	--primary-color: #7A991A;
+	--border-color: #358022;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #222;
+		--text-color: #eee;
+	}
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+}
+
+.button {
+	background-color: var(--primary-color);
+	color: white;
+	border: 1px solid var(--border-color);
+	outline: 1px solid var(--primary-color);
+	padding: 5px 10px;
+	width: 120px;
+	text-align: center;
+	font-size: 11pt;
+}
+
+.button:hover,
+.button:active {
+	background-color: var(--background-color);
+	cursor: pointer;
+}

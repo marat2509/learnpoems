@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="static/script/jquery/jquery-1.7.2.js"></script>
+    <link rel="stylesheet" href="static/fancybox/jquery.fancybox-1.3.4.css" />
+    <script type="text/javascript" src="static/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script type="text/javascript" src="static/fancybox_settings.js"></script>
+    <script src="static/script/jquery/jquery-ui-1.8.20.custom.min.js"></script>
+    <script src="static/script/jquery/jquery.shuffle.js"></script>
+    <script src="static/script/jquery/jquery.blockUI.js"></script>
+    <script src="static/script/jquery/jquery.juice.js"></script>
+    <script src="static/script/game.js"></script>
+    <script src="static/script/timer.js"></script>
+    <script src="static/script/main.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="static/style/mobile.css" rel="stylesheet" type="text/css" media="screen and (max-width: 1023px)" />
+    <link href="static/style/desktop.css" rel="stylesheet" type="text/css" media="screen and (min-width: 1024px)" />
+    <title> Сервис выучивания стихов наизусть - хватит зубрить стихотворения, учи стихи играя </title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('a.fancybox').fancybox();
+            $('.messagebox').each(function() {
+                var $el = $(this);
+                var container = '#' + $el.attr('rel');
+                setTimeout(function() {
+                    $el.detach().prependTo(container + ' form');
+                    $('a[href=' + container + ']').click();
+                }, 200)
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="top"> <a href="index.html" title="Выучить стих">learn<span style="color:var(--primary-color)">Poems</span></a> <img id="soundCtrl" title="Включить звук" src="static/media/sound_off.png" />
+        <div id="level"> Уровень <span id="levelNum"> 1 </span> /6 <div id="progressBar">
+                <div id="percentText"> Завершено на 0% </div>
+            </div>
+        </div>
+        <div id="info"> Ошибок: <span id="mistakes"> 0 </span> <a title="Начать этот уровень заново" id="re" href="#">Заново?</a> <br /> Правильно: <span id="correct"> 0 </span> из 2 </div>
+        <div id="timer">
+            <div id="time"> <span id="min"> </span> : <span id="sec"> </span> </div> <img src="static/media/timer.png" alt="Осталось времени" />
+        </div>
+    </div>
+    <div class="wrapper" id="part1">
+        <div>
+            <div class="contentCol">
+                <textarea id="poetry">
+Я помню чудное мгновенье:
+Передо мной явилась ты,
+Как мимолетное виденье,
+Как гений чистой красоты.</textarea>
+            </div>
+            <div class="contentCol instruction">
+                <p> <span class="num"> 1. </span> Найдите в Интернете стих, который хотите выучить </p>
+                <p> <span class="num"> 2. </span> Скопируйте его и вставьте в текстовое поле слева </p>
+                <p> <span class="num"> 3. </span> Нажмите кнопку &quot;GO&quot; </p> <a style="margin: 10px auto;" class="button go" href="#" id="go">GO »</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper" id="part2">
+        <div>
+            <div class="contentCol">
+                <div id="container"> </div>
+            </div>
+            <div class="contentCol">
+                <div id="result"> </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper" id="part3">
+        <div>
+            <p class="title"> Поздравляем! </p>
+            <div class="col"> <img src="static/media/well_done.png" alt="Поздравляем" /> </div>
+            <div class="col" style="padding-left: 30px;">
+                <p> Вы выучили стихотворение. </p>
+                <p> Для закрепления мы рекомендуем рассказать его себе пару-тройку раз. </p> <a href="index.html">Выучить другое стихотворение</a>
+            </div>
+        </div>
+    </div>
+    <div class="hidden" id="help1">
+        <p style="font-weight: bolder;"> Что произошло? </p>
+        <p> Все строки перемешались и теперь не понятно, какая из них была первой, а какая последней. </p>
+        <p> Помогите пожалуйста восстановить порядок строк в Вашем стихотворении. </p>
+        <p> Просто щелкайте на строчки в нужном порядке: сначала на первую строку, потом на вторую... </p>
+        <p> Задание будет считаться выполненным, когда Вы сможете восстановить порядок два раза подряд без единой ошибки. </p>
+    </div>
+    <div class="hidden" id="help2">
+        <p style="font-weight: bolder;"> Ой-ой-ой! </p>
+        <p> Строки перемешались пуще прежнего. </p>
+        <p> Наведите порядок строк в Вашем стихотворении. </p>
+        <p> Просто щелкайте на строчки в нужном порядке: сначала на первую строку, потом на вторую... </p>
+        <p> Задание будет считаться выполненным, когда Вы сможете восстановить порядок два раза подряд без единой ошибки. </p>
+    </div>
+    <div class="hidden" id="help3">
+        <p style="font-weight: bolder;"> А теперь на время </p>
+        <p> На самом деле мы засекали, как быстро Вы наводите порядок. </p>
+        <p> А теперь расставьте строки верно за Ваше лучшее время. </p>
+        <p> Это нужно сделать два раза подряд. </p>
+        <p> А чтобы пощекотать Вам нервы, сверху будет идти обратный отсчет. </p>
+        <p> Время начнет расходоваться как только Вы выберете первую строчку. </p>
+    </div>
+    <p id="title4" class="hidden"> Куда делись слова?! </p>
+    <div class="hidden" id="help4">
+        <p> Ну вот, со строками теперь все в порядке. </p>
+        <p> А вот слова выпали и перемешались. </p>
+        <p> Придется Вам снова навести порядок, и снова два раза подряд без ошибок. </p>
+        <p> По крайней мере, теперь никто не отсчитывает время. </p>
+    </div>
+    <p id="title5" class="hidden"> Вот блин! </p>
+    <div class="hidden" id="help5">
+        <p> Cлова перемешались еще сильнее. </p>
+        <p> Придется Вам снова навести порядок. </p>
+        <p> Два раза подряд без ошибок - и готово! </p>
+    </div>
+    <p id="title6" class="hidden"> Последний уровень </p>
+    <div class="hidden" id="help6">
+        <p> Стало лучше. </p>
+        <p> Но над душой опять тикают часы. </p>
+        <p> Два раза подряд без ошибок - и стихотворение выучено! </p>
+    </div>
+    <div class="hidden" id="msg"> <span class="title"> </span>
+        <div class="table">
+            <div class="col">
+                <p class="msg icon"></p>
+            </div>
+            <div class="col">
+                <p class="msg desc"> </p>
+            </div>
+        </div> <a class="msg button ok" href="#" id="ok">OK »</a>
+    </div>
+</body>
+
+</html>
